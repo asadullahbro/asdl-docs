@@ -36,7 +36,7 @@ Keep the admin password it prints somewhere safe.
 Put the version before the project name:
 
 ```bash
-curl -fsSL https://get.asdl.website/v0.5.2/asdl-hub | sudo bash
+curl -fsSL https://get.asdl.website/v0.6.0/asdl-hub | sudo bash
 ```
 
 Releases are listed on [GitHub](https://github.com/asadullahbro/ASDL-Hub/releases).
