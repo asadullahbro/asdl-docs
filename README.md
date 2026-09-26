@@ -50,7 +50,9 @@ That's all: it appears on the home page and in the switcher, at
 
 ## Logos and colours
 
-- `public/asdl-hub.svg`, `public/asdl-agent.svg`: app icons (dark tile).
+- `public/asdl.svg` (also `favicon.svg`) and `src/assets/asdl-mark.svg`: the
+  ASDL logo for the whole site (header and browser tab).
+- `public/asdl-hub.svg`, `public/asdl-agent.svg`: project icons (dark tile).
 - `src/assets/*-mark.svg`: the same marks without the tile.
 - `src/styles/theme.css`: the orange accent colour.
 

@@ -12,7 +12,7 @@ export default defineConfig({
 		starlight({
 			title: 'ASDL Docs',
 			description: 'Documentation for ASDL projects.',
-			logo: { src: './src/assets/asdl-hub-mark.svg', alt: '' },
+			logo: { src: './src/assets/asdl-mark.svg', alt: '' },
 			customCss: ['./src/styles/theme.css'],
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/asadullahbro' }],
 			editLink: {
