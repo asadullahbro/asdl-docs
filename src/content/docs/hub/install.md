@@ -36,12 +36,28 @@ Keep the admin password it prints somewhere safe.
 Put the version before the project name:
 
 ```bash
-curl -fsSL https://get.asdl.website/v0.6.0/asdl-hub | sudo bash
+curl -fsSL https://get.asdl.website/v0.6.2/asdl-hub | sudo bash
 ```
 
 Releases are listed on [GitHub](https://github.com/asadullahbro/ASDL-Hub/releases).
 
 ## Upgrade
+
+### From the dashboard
+
+When a new release is out, a banner at the top of every dashboard page says
+so, with a link to what's new. Admins can click **Update now**: the Hub
+downloads that release's installer from GitHub, checks it against the
+release's checksums and runs it. The dashboard is unavailable for about a
+minute while the Hub restarts, then reloads on the new version by itself.
+The installer's output is in `/var/log/asdl-hub-upgrade.log` on the server.
+
+:::note
+One-click updates need v0.6.2 or later. On an older Hub, the banner shows
+the install command to run once instead.
+:::
+
+### From the command line
 
 Run the same command again. The installer detects the existing install and
 upgrades it in place, keeping your database, secrets, WireGuard network and
