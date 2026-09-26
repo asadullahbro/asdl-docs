@@ -68,9 +68,11 @@ The site is a Cloudflare Worker named `asdl-docs` serving the built files,
 on the custom domain `docs.asdl.website` (see `wrangler.jsonc`). Old URLs are
 redirected in `public/_redirects`.
 
-- **Automatic:** once the repo is connected in Cloudflare (Workers & Pages →
-  `asdl-docs` → Settings → Build → Connect), every push to `main` builds and
-  deploys it.
+- **Automatic:** every push to `main` builds and deploys the site
+  (`.github/workflows/deploy.yml`). It uses the `CLOUDFLARE_API_TOKEN`
+  repository secret: a Cloudflare API token made from the **Edit Cloudflare
+  Workers** template. To replace it, create a new token and run
+  `gh secret set CLOUDFLARE_API_TOKEN -R asadullahbro/asdl-docs`.
 - **By hand**, from this folder (needs `npx wrangler login` once):
   ```bash
   npm run deploy
