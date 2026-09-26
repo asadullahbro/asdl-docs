@@ -1,0 +1,58 @@
+---
+// A home-page card for one project: its icon, name, blurb and docs link.
+// Usage in .mdx: <ProductCard title="…" icon="/asdl-hub.svg" href="/hub/overview/">text</ProductCard>
+// Put the icon (an .svg) in public/ and reference it by its path.
+interface Props {
+	title: string;
+	icon: string;
+	href: string;
+}
+const { title, icon, href } = Astro.props;
+---
+
+<a class="product-card not-content" href={href}>
+	<img src={icon} alt="" width="48" height="48" />
+	<div>
+		<span class="title">{title}</span>
+		<span class="body"><slot /></span>
+		<span class="more">Read the docs →</span>
+	</div>
+</a>
+
+<style>
+	.product-card {
+		display: flex;
+		gap: 1rem;
+		align-items: flex-start;
+		padding: 1.25rem;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.5rem;
+		background: var(--sl-color-black);
+		color: var(--sl-color-gray-2);
+		text-decoration: none;
+		transition: border-color 0.15s;
+	}
+	.product-card:hover {
+		border-color: var(--sl-color-accent);
+	}
+	img {
+		flex-shrink: 0;
+		border-radius: 11px;
+	}
+	.title {
+		display: block;
+		font-size: var(--sl-text-h4);
+		font-weight: 600;
+		color: var(--sl-color-white);
+		margin-bottom: 0.25rem;
+	}
+	.body {
+		display: block;
+		line-height: 1.5;
+	}
+	.more {
+		display: inline-block;
+		margin-top: 0.5rem;
+		color: var(--sl-color-text-accent);
+	}
+</style>

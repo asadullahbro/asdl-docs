@@ -10,6 +10,8 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'ASDL Docs',
+			logo: { src: './src/assets/asdl-hub-mark.svg', alt: '' },
+			customCss: ['./src/styles/theme.css'],
 			description: 'Documentation for ASDL Hub, ASDL Agent and related projects.',
 			social: [
 				{ icon: 'github', label: 'GitHub', href: 'https://github.com/asadullahbro/ASDL-Hub' },

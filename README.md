@@ -34,7 +34,12 @@ link at the bottom of any page.
    ```js
    { label: 'My Project', items: [{ autogenerate: { directory: 'myproject' } }] },
    ```
-3. Optionally add a card for it on the home page (`src/content/docs/index.mdx`).
+3. Optionally add a card for it on the home page (`src/content/docs/index.mdx`):
+   put its icon in `public/` (e.g. `public/myproject.svg`, 64×64) and add a
+   `<ProductCard title="My Project" icon="/myproject.svg" href="/myproject/overview/">…</ProductCard>`.
+
+Logos: `public/asdl-hub.svg` and `public/asdl-agent.svg` are the app icons
+(dark tile); `src/assets/*-mark.svg` are the same marks without the tile.
 
 ## Preview locally
 

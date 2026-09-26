@@ -1,0 +1,11 @@
+/* Brand colours: the orange of the ASDL logo. Dark theme is the default. */
+:root {
+	--sl-color-accent-low: #3a2604;
+	--sl-color-accent: #d98a00;
+	--sl-color-accent-high: #ffcf85;
+}
+:root[data-theme='light'] {
+	--sl-color-accent-low: #ffe6bf;
+	--sl-color-accent: #b36b00;
+	--sl-color-accent-high: #4d2e00;
+}

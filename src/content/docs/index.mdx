@@ -15,17 +15,16 @@ hero:
       variant: minimal
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { CardGrid } from '@astrojs/starlight/components';
+import ProductCard from '../../components/ProductCard.astro';
 
 <CardGrid>
-	<Card title="ASDL Hub" icon="rocket">
+	<ProductCard title="ASDL Hub" icon="/asdl-hub.svg" href="/hub/overview/">
 		The control plane: a dashboard and API that deploys your containers to
 		your nodes, routes your domains, and moves apps when a node goes down.
-		[Read the Hub docs →](/hub/overview/)
-	</Card>
-	<Card title="ASDL Agent" icon="laptop">
+	</ProductCard>
+	<ProductCard title="ASDL Agent" icon="/asdl-agent.svg" href="/agent/overview/">
 		The small program that runs on each machine (node), joins the private
 		network and runs what the Hub asks it to.
-		[Read the Agent docs →](/agent/overview/)
-	</Card>
+	</ProductCard>
 </CardGrid>
