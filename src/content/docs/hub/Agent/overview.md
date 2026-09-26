@@ -35,9 +35,29 @@ install script sets up everything; there's nothing to configure by hand.
 
 ## Updating
 
-The agent checks for new releases every few minutes and updates itself. To
+The agent checks for new releases every 5 minutes and updates itself. To
 update all nodes right away, use **Settings → Agent update → Deploy agents**
-in the dashboard (or `POST /api/v1/agents/deploy`).
+in the Hub (or `POST /api/v1/agents/deploy`).
+
+### The agent's dashboard
+
+Each node has a small dashboard of its own at `http://localhost:<port>` on
+that machine (the port is `dashboard.port` in the agent's config). It shows
+the node's resources, recent jobs, the agent's version, whether a newer
+release is out, and progress while it updates.
+
+### Turning automatic updates off
+
+The **Automatic updates** switch on the node's dashboard stops the agent
+from updating itself, for example to keep a node on a known version. The
+setting is saved in `agent-state.json` next to the agent's config, and can
+only be changed from the node itself (`localhost`).
+
+:::caution
+The switch only covers the agent's own updates. When the Hub sends an
+update (**Deploy agents**), the node installs it even with automatic
+updates off.
+:::
 
 ## Requirements
 
