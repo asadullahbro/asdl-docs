@@ -33,6 +33,16 @@ The node appears under **Nodes** in the dashboard within a few seconds.
 
 ## Checking a node
 
+Open **Nodes → the node** in the dashboard:
+
+- **Connection to Hub** shows the last heartbeat, the last WireGuard
+  handshake, ping and agent version, with a one-line verdict when something
+  is off (for example "Tunnel up but no heartbeats: the agent may be
+  stopped").
+- **Apps on this node** lists every container the node's agent reports, with
+  the ones the Hub started marked **Hub**. Operators can read a container's
+  last 300 log lines or restart it; both run on the node as jobs.
+
 - **Online** means the Hub received a heartbeat recently. A node is marked
   offline after missing three heartbeats (about 90 seconds).
 - The **health score** combines CPU, memory, disk, load and network latency.
@@ -47,7 +57,7 @@ journalctl -u 'asdl-agent-*' -f
 
 ## Removing a node
 
-Move its apps elsewhere first (see [Configure an app](/hub/configure-an-app/#move-an-app-to-another-node)),
-then delete the node in the dashboard and uninstall the agent on the machine.
+Put it into [maintenance mode](/hub/maintenance/) first so its apps move
+elsewhere without downtime, then delete the node in the dashboard and uninstall the agent on the machine.
 If a node simply goes offline, its apps are moved automatically — see
 [Failover](/hub/failover/).

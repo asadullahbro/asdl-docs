@@ -11,6 +11,8 @@ sidebar:
 |---|---|
 | Dashboard → **Jobs** → a job's logs | The exact output of a deploy on the node, including why a container exited. |
 | Dashboard → **Projects** | Status and health of each app, and which node runs it. |
+| Dashboard → **Nodes → a node** | Connection to the Hub, and every container on the node with its logs. |
+| The node's own dashboard (`http://localhost:8081` on the node) | The same from the node's side, including the last error talking to the Hub. |
 | `journalctl -u asdl-hub -f` (Hub server) | Hub decisions: deploys, failovers, nginx and certificate updates. |
 | `journalctl -u 'asdl-agent-*' -f` (node) | What the agent is doing on that node. |
 
@@ -48,6 +50,9 @@ start.
 
 ### A node shows offline but the machine is on
 
+- Check **Connection to Hub** on the node's page in the dashboard, or on the
+  node's own dashboard: its verdict says whether the tunnel or the agent is
+  the problem.
 - Is the agent running? `systemctl status 'asdl-agent-*'`
 - Can it reach the Hub's WireGuard port? Check UDP is open on the Hub's
   cloud firewall, and `sudo wg show` on the node shows a recent handshake.

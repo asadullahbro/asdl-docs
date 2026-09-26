@@ -42,9 +42,22 @@ in the Hub (or `POST /api/v1/agents/deploy`).
 ### The agent's dashboard
 
 Each node has a small dashboard of its own at `http://localhost:<port>` on
-that machine (the port is `dashboard.port` in the agent's config). It shows
-the node's resources, recent jobs, the agent's version, whether a newer
-release is out, and progress while it updates.
+that machine: the installer picks the first free port from 8081 (find it
+with `sudo ss -ltnp | grep asdl-agent`). It shows:
+
+- **Updates**: the agent's version, whether a newer release is out, progress
+  while it updates, **Check now**, and **Install now** (which works even with
+  automatic updates off).
+- **Maintenance mode**: start or end [maintenance](/hub/maintenance/) for
+  this node.
+- **Connection to Hub**: the last successful heartbeat, the last error, the
+  WireGuard handshake and ping, with a plain verdict ("No contact with the
+  Hub…", "The tunnel is up but heartbeats fail…").
+- **Apps on this node**: every container, with its logs. Logs are only
+  shown on the machine itself, as they can contain secrets.
+- Resources and recent jobs.
+
+Buttons that change something only work from the machine itself.
 
 ### Turning automatic updates off
 

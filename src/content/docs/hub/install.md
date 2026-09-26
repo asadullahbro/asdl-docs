@@ -36,7 +36,7 @@ Keep the admin password it prints somewhere safe.
 Put the version before the project name:
 
 ```bash
-curl -fsSL https://get.asdl.website/v0.6.2/asdl-hub | sudo bash
+curl -fsSL https://get.asdl.website/v0.7.0/asdl-hub | sudo bash
 ```
 
 Releases are listed on [GitHub](https://github.com/asadullahbro/ASDL-Hub/releases).
@@ -51,6 +51,9 @@ downloads that release's installer from GitHub, checks it against the
 release's checksums and runs it. The dashboard is unavailable for about a
 minute while the Hub restarts, then reloads on the new version by itself.
 The installer's output is in `/var/log/asdl-hub-upgrade.log` on the server.
+
+**Settings → Hub version** shows the running version and has **Check for
+updates**, in case you don't want to wait for the hourly check.
 
 :::note
 One-click updates need v0.6.2 or later. On an older Hub, the banner shows
