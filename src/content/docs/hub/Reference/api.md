@@ -29,10 +29,10 @@ tokens and settings.
 |---|---|
 | `GET /projects` | List projects (paginated: `?page=1&limit=20`). Env var values are masked. |
 | `GET /projects/:id` | One project. |
-| `POST /projects` | Create a project: `{"name", "node_id", "image", "domain", "ports", "env_vars", "volumes"}`. Deploys it if an image is given. |
+| `POST /projects` | Create a project: `{"name", "node_id", "image", "domain", "ports", "env_vars", "volumes", "repository"}`. Deploys it if an image is given; otherwise it waits on that node. `repository` (`owner/repo`) links GitHub deploys to it. |
 | `PUT /projects/:id` | Change a project. Send only the fields to change. `env_vars` values of `********` keep the stored value; `"ports": []` switches to automatic ports; a different `node_id` moves the app. |
 | `POST /projects/:id/redeploy` | Restart the app with its current image and settings. |
-| `DELETE /projects/:id` | Delete a project. |
+| `DELETE /projects/:id` | Delete a project and remove its container from the node. |
 | `GET /projects/:id/health` | Run a health check now. |
 
 Example — set env vars, keeping `DB_PASSWORD` as it is:

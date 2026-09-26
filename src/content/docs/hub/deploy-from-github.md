@@ -22,6 +22,28 @@ GitHub personal access token with the **`read:packages`** scope and add it
 under **GitHub → GitHub Tokens**. It is stored encrypted and only handed to a node
 while it pulls the image.
 
+## Optional: set it up before the first deploy
+
+By default the first deploy creates a project named after the repo on the
+healthiest node, with no settings. If the app needs its secrets from the
+start, or must run on a particular node, create the project first with the
+API, linked to the repo:
+
+```bash
+curl -X POST https://hub.example.com/api/v1/projects \
+  -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
+  -d '{
+    "name": "my-bot",
+    "node_id": "<node id>",
+    "repository": "owner/repo",
+    "env_vars": [{"key": "BOT_TOKEN", "value": "..."}]
+  }'
+```
+
+Deploys from that repo then update this project, and the first one runs on
+that node. The container is named after the project, so naming the project
+after an existing container on that node replaces it in place.
+
 ## 3. Add the workflow
 
 Save this as `.github/workflows/deploy.yml` in your repo and replace
