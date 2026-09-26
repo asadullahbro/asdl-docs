@@ -13,6 +13,8 @@ desktop, a laptop — and takes care of the work around them:
 - **Ports**: picked automatically, so apps on the same machine never clash.
 - **Domains and HTTPS**: set a domain on an app and the Hub routes it and gets a certificate.
 - **Failover**: if a machine goes down, the app is moved to a healthy one in about 30 seconds.
+- **Maintenance mode**: before working on a machine, move its apps away without downtime.
+- **One-click updates**: the dashboard tells you when a new release is out and installs it.
 
 ## How it fits together
 

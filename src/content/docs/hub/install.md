@@ -55,6 +55,9 @@ The installer's output is in `/var/log/asdl-hub-upgrade.log` on the server.
 **Settings → Hub version** shows the running version and has **Check for
 updates**, in case you don't want to wait for the hourly check.
 
+**Settings → Hub version** shows the running version and has **Check for
+updates**, in case you don't want to wait for the hourly check.
+
 :::note
 One-click updates need v0.6.2 or later. On an older Hub, the banner shows
 the install command to run once instead.

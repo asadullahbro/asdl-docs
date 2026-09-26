@@ -56,7 +56,11 @@ curl -X PUT https://hub.example.com/api/v1/projects/$ID \
 
 | Request | Does |
 |---|---|
-| `GET /nodes`, `GET /nodes/:id` | Nodes and their health. |
+| `GET /nodes`, `GET /nodes/:id` | Nodes and their health, including the containers each agent reports. |
+| `GET /nodes/:id/connection` | Last heartbeat, WireGuard handshake, ping and agent version. |
+| `PUT /nodes/:id/maintenance` | `{"enabled": true\|false}`: start or end [maintenance](/hub/maintenance/). Returns which apps are moving and which stay. |
+| `POST /nodes/:id/containers/:name/logs?lines=N` | Fetch a container's logs; returns a `job_id` to follow with `GET /jobs/:id/logs`. |
+| `POST /nodes/:id/containers/:name/restart` | Restart a container; returns a `job_id`. |
 | `GET /jobs`, `GET /jobs/:id/logs` | Jobs sent to nodes and their output. Environment values are masked. |
 | `GET /migrations` | Failovers and moves. |
 | `POST /agents/deploy` | Update the agent on all online nodes. |
@@ -66,5 +70,7 @@ curl -X PUT https://hub.example.com/api/v1/projects/$ID \
 
 | Request | Does |
 |---|---|
+| `GET /system/version` | Running and latest version; `?refresh=1` checks GitHub now. |
+| `POST /system/update` | Admin: upgrade to the latest release. |
 | `GET /health` (no `/api/v1`) | Is the Hub up. |
 | `POST /auth/login` | `{"username","password"}` → `{"token"}` (dashboard login). |
