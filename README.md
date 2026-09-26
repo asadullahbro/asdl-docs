@@ -14,7 +14,7 @@ src/content/docs/
 ├── hub/                   → "ASDL Hub" section in the sidebar
 │   ├── overview.md        → /hub/overview/
 │   ├── ...
-│   └── reference/         → a sub-group inside the section
+│   └── Reference/         → a sub-group (folder name = its label)
 └── agent/                 → "ASDL Agent" section
 ```
 

@@ -2,7 +2,7 @@
 title: Configuration
 description: Settings in /opt/asdl-hub/.env.
 sidebar:
-  order: 1
+  order: 100
 ---
 
 The Hub reads its settings from `/opt/asdl-hub/.env`. The installer writes

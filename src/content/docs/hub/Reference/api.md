@@ -2,7 +2,7 @@
 title: API
 description: The Hub's HTTP API, for scripts and automation.
 sidebar:
-  order: 2
+  order: 101
 ---
 
 Everything the dashboard does goes through this API, under
