@@ -1,0 +1,30 @@
+---
+title: ASDL Docs
+description: Documentation for ASDL Hub, ASDL Agent and related projects.
+template: splash
+hero:
+  tagline: Run your apps across your own machines, with deploys, secrets, HTTPS and failover handled for you.
+  actions:
+    - text: Get started with ASDL Hub
+      link: /hub/overview/
+      icon: right-arrow
+    - text: GitHub
+      link: https://github.com/asadullahbro/ASDL-Hub
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+	<Card title="ASDL Hub" icon="rocket">
+		The control plane: a dashboard and API that deploys your containers to
+		your nodes, routes your domains, and moves apps when a node goes down.
+		[Read the Hub docs →](/hub/overview/)
+	</Card>
+	<Card title="ASDL Agent" icon="laptop">
+		The small program that runs on each machine (node), joins the private
+		network and runs what the Hub asks it to.
+		[Read the Agent docs →](/agent/overview/)
+	</Card>
+</CardGrid>
