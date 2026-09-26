@@ -1,9 +1,12 @@
 ---
-title: Overview
+title: ASDL Agent
 description: What the ASDL Agent does on each node.
 sidebar:
-  order: 1
+  label: Overview
+  order: 50
 ---
+
+<img src="/asdl-agent.svg" alt="" width="56" height="56" style="border-radius:12px" />
 
 The ASDL Agent is a small program that runs on every node. It:
 

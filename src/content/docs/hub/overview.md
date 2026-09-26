@@ -37,7 +37,7 @@ desktop, a laptop — and takes care of the work around them:
   database, serves the dashboard, and is the only thing exposed to the
   internet.
 - **Nodes** are the machines that run your apps. Each one runs the
-  [ASDL Agent](/agent/overview/), which joins a private WireGuard network
+  [ASDL Agent](/hub/agent/overview/), which joins a private WireGuard network
   with the Hub, reports its health, and runs jobs the Hub gives it.
 - Traffic for your domains arrives at the Hub's nginx, which forwards it over
   the private network to whichever node currently runs the app. Node ports

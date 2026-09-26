@@ -1,45 +1,58 @@
 # ASDL Docs
 
-Source for **https://docs.asdl.website** — documentation for ASDL Hub, ASDL
-Agent and related projects. Built with [Starlight](https://starlight.astro.build)
-and hosted on Cloudflare.
+Source for **https://docs.asdl.website** — documentation for every ASDL
+project. Built with [Starlight](https://starlight.astro.build) and hosted on
+Cloudflare.
 
-## Add or edit a page
-
-Pages are Markdown files in `src/content/docs/`:
+Each project has its own section at `docs.asdl.website/<slug>/` with its own
+sidebar; a switcher at the top of the sidebar moves between projects, and the
+home page lists them all.
 
 ```
-src/content/docs/
-├── index.mdx              → the home page
-├── hub/                   → "ASDL Hub" section in the sidebar
-│   ├── overview.md        → /hub/overview/
-│   ├── ...
-│   └── Reference/         → a sub-group (folder name = its label)
-└── agent/                 → "ASDL Agent" section
+src/
+├── projects.mjs               → the list of projects (switcher + home page)
+└── content/docs/
+    ├── index.mdx              → home page (built from projects.mjs)
+    └── hub/                   → ASDL Hub, at /hub/
+        ├── overview.md        → /hub/overview/
+        ├── ...
+        ├── Agent/             → a sub-group in the Hub sidebar (folder name = label)
+        └── Reference/
 ```
 
-1. Copy `templates/page.md` into the section folder, e.g.
-   `src/content/docs/hub/backups.md`.
+## Add a page to a project
+
+1. Copy `templates/page.md` into the project's folder, e.g.
+   `src/content/docs/hub/backups.md` (→ `/hub/backups/`).
 2. Set `title`, `description` and `sidebar.order` (lower = higher up).
 3. Write the page in Markdown, then commit and push.
 
-The sidebar builds itself from the folders, so there's nothing else to
-register. To edit an existing page from the browser, use the **Edit page**
-link at the bottom of any page.
+The sidebar builds itself from the folder; put pages in a subfolder to group
+them. To fix a typo from the browser, use **Edit page** at the bottom of any
+page.
 
-### Add a new section (a new project)
+## Add a new project
 
-1. Create a folder, e.g. `src/content/docs/myproject/`, with at least one page.
-2. Add one line to the `sidebar` list in `astro.config.mjs`:
+1. Create `src/content/docs/<slug>/overview.md` (plus any other pages).
+2. Add an entry to `src/projects.mjs`:
    ```js
-   { label: 'My Project', items: [{ autogenerate: { directory: 'myproject' } }] },
+   {
+     slug: 'myproject',
+     name: 'My Project',
+     description: 'One or two sentences for the home page.',
+     image: '/myproject.svg', // optional: a 64×64 icon in public/
+     icon: 'puzzle',          // optional: built-in icon for the switcher
+   },
    ```
-3. Optionally add a card for it on the home page (`src/content/docs/index.mdx`):
-   put its icon in `public/` (e.g. `public/myproject.svg`, 64×64) and add a
-   `<ProductCard title="My Project" icon="/myproject.svg" href="/myproject/overview/">…</ProductCard>`.
 
-Logos: `public/asdl-hub.svg` and `public/asdl-agent.svg` are the app icons
-(dark tile); `src/assets/*-mark.svg` are the same marks without the tile.
+That's all: it appears on the home page and in the switcher, at
+`docs.asdl.website/myproject/`.
+
+## Logos and colours
+
+- `public/asdl-hub.svg`, `public/asdl-agent.svg`: app icons (dark tile).
+- `src/assets/*-mark.svg`: the same marks without the tile.
+- `src/styles/theme.css`: the orange accent colour.
 
 ## Preview locally
 
@@ -52,7 +65,8 @@ npm run build    # what the deploy runs; fails on broken pages
 ## Deploying
 
 The site is a Cloudflare Worker named `asdl-docs` serving the built files,
-on the custom domain `docs.asdl.website` (see `wrangler.jsonc`).
+on the custom domain `docs.asdl.website` (see `wrangler.jsonc`). Old URLs are
+redirected in `public/_redirects`.
 
 - **Automatic:** once the repo is connected in Cloudflare (Workers & Pages →
   `asdl-docs` → Settings → Build → Connect), every push to `main` builds and

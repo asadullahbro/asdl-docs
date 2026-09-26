@@ -1,30 +1,22 @@
 ---
 title: Home
-description: Documentation for ASDL Hub, ASDL Agent and related projects.
+description: Documentation for ASDL projects.
 template: splash
 hero:
   title: ASDL Docs
-  tagline: Run your apps across your own machines, with deploys, secrets, HTTPS and failover handled for you.
-  actions:
-    - text: Get started with ASDL Hub
-      link: /hub/overview/
-      icon: right-arrow
-    - text: GitHub
-      link: https://github.com/asadullahbro/ASDL-Hub
-      icon: external
-      variant: minimal
+  tagline: Guides and reference for every ASDL project, in one place.
 ---
 
 import { CardGrid } from '@astrojs/starlight/components';
 import ProductCard from '../../components/ProductCard.astro';
+import { projects } from '../../projects.mjs';
+
+## Projects
 
 <CardGrid>
-	<ProductCard title="ASDL Hub" icon="/asdl-hub.svg" href="/hub/overview/">
-		The control plane: a dashboard and API that deploys your containers to
-		your nodes, routes your domains, and moves apps when a node goes down.
-	</ProductCard>
-	<ProductCard title="ASDL Agent" icon="/asdl-agent.svg" href="/agent/overview/">
-		The small program that runs on each machine (node), joins the private
-		network and runs what the Hub asks it to.
-	</ProductCard>
+	{projects.map((p) => (
+		<ProductCard title={p.name} icon={p.image ?? '/favicon.svg'} href={`/${p.slug}/overview/`}>
+			{p.description}
+		</ProductCard>
+	))}
 </CardGrid>

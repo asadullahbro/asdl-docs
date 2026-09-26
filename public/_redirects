@@ -1,0 +1,2 @@
+# Old URLs from before each project had its own section.
+/agent/* /hub/agent/:splat 301
