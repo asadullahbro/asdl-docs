@@ -1,3 +1,11 @@
+## Content
+
+Docs pages are Markdown in `src/content/docs/<section>/`; sidebars are
+generated from the folders. Follow README.md (and `templates/page.md`) when
+adding pages or sections, and keep pages accurate to the current ASDL Hub
+and Agent code — check the source (github.com/asadullahbro/ASDL-Hub,
+asdl-agent) rather than guessing dashboard labels or API fields.
+
 ## Development
 
 When starting the dev server, use background mode:

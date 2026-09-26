@@ -2,7 +2,7 @@
 
 Source for **https://docs.asdl.website** — documentation for ASDL Hub, ASDL
 Agent and related projects. Built with [Starlight](https://starlight.astro.build)
-and hosted on Cloudflare. Every push to `main` deploys the site.
+and hosted on Cloudflare.
 
 ## Add or edit a page
 
@@ -21,7 +21,7 @@ src/content/docs/
 1. Copy `templates/page.md` into the section folder, e.g.
    `src/content/docs/hub/backups.md`.
 2. Set `title`, `description` and `sidebar.order` (lower = higher up).
-3. Write the page in Markdown. Commit and push — it's live a minute later.
+3. Write the page in Markdown, then commit and push.
 
 The sidebar builds itself from the folders, so there's nothing else to
 register. To edit an existing page from the browser, use the **Edit page**
@@ -46,9 +46,13 @@ npm run build    # what the deploy runs; fails on broken pages
 
 ## Deploying
 
-Pushes to `main` are deployed by GitHub Actions
-(`.github/workflows/deploy.yml`) with Wrangler. To deploy by hand:
+The site is a Cloudflare Worker named `asdl-docs` serving the built files,
+on the custom domain `docs.asdl.website` (see `wrangler.jsonc`).
 
-```bash
-npm run build && npx wrangler deploy
-```
+- **Automatic:** once the repo is connected in Cloudflare (Workers & Pages →
+  `asdl-docs` → Settings → Build → Connect), every push to `main` builds and
+  deploys it.
+- **By hand**, from this folder (needs `npx wrangler login` once):
+  ```bash
+  npm run deploy
+  ```
