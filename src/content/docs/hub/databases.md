@@ -44,6 +44,10 @@ within about a second and catches up by itself after being offline:
   and when the original returns, copy the data back and rebuild the copy.
   Automatic switching risks two databases taking writes.
 
+If a website talks to the database through an API (for example Supabase's
+REST API), run that API as a Hub project too, with the database's mesh
+address, so it moves between nodes like the app and its domain follows it.
+
 Point the app at the new database by editing its environment variables in
 the dashboard (**Projects → Edit**) or with `PUT /api/v1/projects/:id`; the
 Hub redeploys it with the new settings.

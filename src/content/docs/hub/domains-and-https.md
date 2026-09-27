@@ -27,6 +27,18 @@ isn't pointing at the Hub yet, the Hub retries at most every 10 minutes
 (Let's Encrypt limits failed attempts).
 :::
 
+## Several apps on one domain
+
+Give each project the same **Domain** and a different **Path** (in **Edit**),
+for example `/api/` for one and nothing (the whole domain) for another. The
+Hub serves each under its path and **strips the path** before the request
+reaches the app, so a request for `https://example.com/api/users` arrives at
+the API project as `/users`. A domain and path can only belong to one
+project.
+
+This is how `db.asdl.website/rest/v1/` is served: a PostgREST container run as
+a Hub project with path `/rest/v1/`, which the Hub can run on any node.
+
 ## Renewals
 
 Certificates last 90 days. `certbot` on the Hub server renews them
