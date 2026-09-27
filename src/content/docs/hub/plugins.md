@@ -33,14 +33,28 @@ data you can't lose in a database.
 | **Redis** | `redis:7-alpine`, with a generated password, nothing saved to disk | `REDIS_URL` |
 | **SearXNG** | `searxng/searxng`, with JSON results enabled | `SEARXNG_URL` |
 
+| **Supabase REST API** | PostgREST, as Supabase serves `/rest/v1/` (public) | `SUPABASE_REST_URL` |
+
+## Public plugins
+
+Most plugins are private: only their project reaches them. A **public**
+plugin (`"public": true`) is also served by the Hub at a **domain and path**
+you choose when you attach it, like a project. The node publishes its port,
+and the Hub routes the domain to wherever the project runs; the route follows
+it when it moves. See [Self-hosted Supabase](/hub/supabase/) for a full
+example.
+
 ## Add one to a project
 
-In **Plugins**, pick a project under the plugin and click **Add**. The
-project is redeployed with it. Project cards list their plugins; the **×**
+In **Plugins**, pick a project under the plugin and click **Add** (plugins
+that need settings, or a domain for public ones, ask for them). The project
+is redeployed with it. Project cards list their plugins; the **×**
 removes one (and redeploys the project without it).
 
 Or with the API: `POST /api/v1/projects/:id/plugins` with
-`{"plugin_id": "redis"}`, and `DELETE /api/v1/projects/:id/plugins/redis`.
+`{"plugin_id": "redis"}` (plus `"vars"`, and `"domain"`/`"route_path"` for
+public plugins); `PUT /api/v1/projects/:id/plugins/:plugin` to change its
+settings or route; `DELETE /api/v1/projects/:id/plugins/:plugin` to remove it.
 
 ## Custom plugins
 
@@ -61,7 +75,8 @@ Admins can add their own under **Plugins → Custom plugin**, as JSON:
 }
 ```
 
-- `provides` is required: the variables the project gets.
+- `provides` is the variables the project gets (required unless `public`).
+- `"public": true` makes it servable at a domain and path chosen on attach.
 - In `command`, `env`, `files` and `provides` you can use `{{host}}` (the
   plugin's name in the project's network, which is its `id`), `{{port}}`, and
   `{{var.KEY}}` for settings declared in `vars`.
