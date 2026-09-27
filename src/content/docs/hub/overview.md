@@ -14,6 +14,8 @@ desktop, a laptop — and takes care of the work around them:
 - **Domains and HTTPS**: set a domain on an app and the Hub routes it and gets a certificate.
 - **Failover**: if a machine goes down, the app is moved to a healthy one in about 30 seconds.
 - **Maintenance mode**: before working on a machine, move its apps away without downtime.
+- **Plugins**: companion services like Redis or a Supabase REST API that run next to an app and move with it.
+- **[Notifications](/hub/notifications/)**: hear about failed deploys, apps going down and nodes going offline on Discord, Slack, Telegram, ntfy, email or a webhook.
 - **One-click updates**: the dashboard tells you when a new release is out and installs it.
 
 ## How it fits together

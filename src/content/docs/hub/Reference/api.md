@@ -66,6 +66,16 @@ curl -X PUT https://hub.example.com/api/v1/projects/$ID \
 | `POST /agents/deploy` | Update the agent on all online nodes. |
 | `POST /nginx/update` | Rebuild app routes and certificates now. |
 
+## Notifications
+
+Admin only; see [Notifications](/hub/notifications/#api).
+
+| Request | Does |
+|---|---|
+| `GET /notifications/types` | Channel types (Discord, Slack, Telegram, ntfy, email, webhook) and events. |
+| `GET/POST /notifications`, `PUT/DELETE /notifications/:id` | Channels; secrets are masked. |
+| `POST /notifications/:id/test` | Send a test message now. |
+
 ## Other
 
 | Request | Does |

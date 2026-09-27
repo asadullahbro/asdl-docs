@@ -5,6 +5,11 @@ sidebar:
   order: 5.5
 ---
 
+:::note
+This page is about **app plugins**. Plugins that send alerts to Discord,
+Slack, email and more are on the [Notifications](/hub/notifications/) page.
+:::
+
 A **plugin** is a companion service attached to a project, such as a cache
 or a search engine. The Hub runs it:
 
