@@ -67,9 +67,9 @@ before a saved login.
 | `version` | The program's version. |
 | `serve` | Run the Hub server; this is what the service runs. |
 
-Apps and nodes are named by name or ID; a node's hostname can be shortened
-(`macbook` for `macbook.local`). Add `--json` to any command to print the API's
-answer, e.g. `asdl-hub apps --json | jq '.[].name'`.
+Apps and nodes are named by name or ID, or any start of one that is
+unambiguous: `macbook` for `macbook-pro.local`, `web` for `website`. Add
+`--json` to any command to print the API's answer, e.g. `asdl-hub apps --json | jq '.[].name'`.
 
 Commands need the role the dashboard would: anyone can look, operators and
 admins can deploy, move, restart and read logs, and only admins manage
