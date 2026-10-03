@@ -153,6 +153,9 @@ Notifications page; switch it off there without deleting it.
 
 Links in messages point at your dashboard, using the Hub's `PUBLIC_URL`.
 
+If a channel shows an error or nothing arrives, see
+[Troubleshooting → Notifications](/hub/troubleshooting/#notifications).
+
 ## API
 
 Admin only, under `/api/v1`:

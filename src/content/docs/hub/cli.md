@@ -95,3 +95,8 @@ $ sudo asdl-hub logs api -n 3
 
 On the nodes themselves, the agent has a command line of its own:
 [`asdl-agent`](/hub/agent/cli/).
+
+## When something doesn't work
+
+Every error the command line prints, and what to do about it, is in
+[Troubleshooting → Command line](/hub/troubleshooting/#command-line).

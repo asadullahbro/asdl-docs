@@ -52,3 +52,8 @@ itself, like the local dashboard's buttons. `logs` and `restart` use Docker
 through the agent, so they work without `sudo`.
 
 For the whole Hub (every node and app), use [`asdl-hub`](/hub/cli/).
+
+## When something doesn't work
+
+Every error the command line prints, and what to do about it, is in
+[Troubleshooting → Command line](/hub/troubleshooting/#command-line).
