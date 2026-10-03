@@ -57,6 +57,7 @@ before a saved login.
 | `move <app> <node>` | Move an app to another node, and wait for it. |
 | `restart <app>` | Restart the app's container. |
 | `logs <app> [-n 100]` | The app's last lines of output. |
+| `node remove <node>` | [Remove a node](/hub/add-a-node/#remove-a-node) for good, after its apps have moved. Asks first; `--yes` skips the question. |
 | `maintenance <node> on\|off` | Start [maintenance](/hub/maintenance/) (apps move off the node) or end it. |
 | `jobs [-n 15]` | Recent jobs with their node, status and duration. |
 | `job <id>` | A job's details and output. The short IDs `jobs` prints work. |

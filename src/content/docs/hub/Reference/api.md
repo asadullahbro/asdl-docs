@@ -57,6 +57,7 @@ curl -X PUT https://hub.example.com/api/v1/projects/$ID \
 | Request | Does |
 |---|---|
 | `GET /nodes`, `GET /nodes/:id` | Nodes and their health, including the containers each agent reports. |
+| `DELETE /nodes/:id` | Admin: remove a node (WireGuard access, keys, history). Refused with `409` while apps run on it. |
 | `GET /nodes/:id/connection` | Last heartbeat, WireGuard handshake, ping and agent version. |
 | `PUT /nodes/:id/maintenance` | `{"enabled": true\|false}`: start or end [maintenance](/hub/maintenance/). Returns which apps are moving and which stay. |
 | `POST /nodes/:id/containers/:name/logs?lines=N` | Fetch a container's logs; returns a `job_id` to follow with `GET /jobs/:id/logs`. |

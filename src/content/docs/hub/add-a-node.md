@@ -55,9 +55,47 @@ systemctl status 'asdl-agent-*'
 journalctl -u 'asdl-agent-*' -f
 ```
 
-## Removing a node
+## Remove a node
 
-Put it into [maintenance mode](/hub/maintenance/) first so its apps move
-elsewhere without downtime, then delete the node in the dashboard and uninstall the agent on the machine.
-If a node simply goes offline, its apps are moved automatically — see
-[Failover](/hub/failover/).
+1. **Move its apps off it.** Put it into [maintenance mode](/hub/maintenance/)
+   so they move to other nodes without downtime, or move them one by one. A
+   node that still runs apps can't be removed. (If the node is already gone,
+   its apps have usually failed over by themselves; see
+   [Failover](/hub/failover/).)
+2. **Remove it from the Hub.** Open the node in **Nodes** and choose
+   **Remove node** at the bottom of the page (admins only), or on the Hub's
+   server run:
+
+   ```bash
+   sudo asdl-hub node remove <node>
+   ```
+
+   The Hub forgets the node: its WireGuard access, SSH keys, heartbeat
+   history and waiting jobs. If the node is still online, its agent is cut
+   off from the Hub at that moment. To use the machine again later, add it as
+   a new node.
+3. **Uninstall the agent on the machine**, if it still exists. Each Hub's
+   agent is named after the Hub, so use the names `ls /etc/asdl/` shows.
+
+   On Linux:
+
+   ```bash
+   HUB=hub-example-com            # the folder name in /etc/asdl/
+   IFACE=$(ls /etc/wireguard/ | grep '^asdl-' | sed 's/\.conf$//')   # pick the Hub's one if there are several
+   sudo systemctl disable --now "asdl-agent-$HUB" "wg-quick@$IFACE"
+   sudo rm -f "/etc/systemd/system/asdl-agent-$HUB.service" "/usr/local/bin/asdl-agent-$HUB" "/etc/wireguard/$IFACE.conf"
+   sudo rm -rf "/etc/asdl/$HUB"
+   sudo systemctl daemon-reload
+   ```
+
+   On macOS:
+
+   ```bash
+   HUB=hub-example-com            # the folder name in /usr/local/etc/asdl/
+   sudo launchctl bootout "system/website.asdl.agent.$HUB"
+   sudo rm -f "/Library/LaunchDaemons/website.asdl.agent.$HUB.plist" "/usr/local/bin/asdl-agent-$HUB"
+   sudo wg-quick down /usr/local/etc/wireguard/asdl-*.conf
+   sudo rm -rf "/usr/local/etc/asdl/$HUB" /usr/local/etc/wireguard/asdl-*.conf
+   ```
+
+   If that was the machine's only Hub, also remove `/usr/local/bin/asdl-agent`.
