@@ -32,6 +32,7 @@ command is there on every node and updates with the agent.
 | Command | Does |
 |---|---|
 | `status` | The node, its connection to the Hub and the mesh, maintenance, the agent's version and updates, and CPU, memory and disk. |
+| `doctor` | Check this node and say what to fix: see [below](#doctor). |
 | `apps` | Containers on the node, and which the Hub started. |
 | `logs <app> [-n 100]` | A container's last lines of output. |
 | `restart <app>` | Restart a container. |
@@ -52,6 +53,44 @@ itself, like the local dashboard's buttons. `logs` and `restart` use Docker
 through the agent, so they work without `sudo`.
 
 For the whole Hub (every node and app), use [`asdl-hub`](/hub/cli/).
+
+## Doctor
+
+`asdl-agent doctor` checks the node and prints what's wrong with the command
+that fixes it. It exits with 1 if it found a problem.
+
+```console
+$ asdl-agent doctor
+ASDL Agent doctor
+
+Agent
+  ✓ The agent answers (v2026.10.03-1a2b3c4 on node-1)
+  ✓ Up to date
+
+Hub connection
+  ✗ Heartbeats are failing (last one that worked 12m ago): dial tcp 10.101.0.1:8080: i/o timeout
+      → sudo wg show (is there a recent handshake?)
+      → Is the Hub's WireGuard UDP port open in its cloud firewall?
+      → journalctl -u 'asdl-agent*' -n 50
+
+Apps
+  ! api is exited (Exited (1) 2 minutes ago)
+      → asdl-agent logs api
+      → asdl-agent restart api
+
+Resources
+  ✓ Disk: 40.1 GB (35%) free
+  ✓ Memory: 41% used
+
+4 ok, 1 warning, 1 problem
+```
+
+| Section | Checks |
+|---|---|
+| Agent | The agent is running (if not, which `asdl-agent-*` service is down and how to start it), and whether an update is out or the last one failed. |
+| Hub connection | Heartbeats reach the Hub, the WireGuard tunnel has a recent handshake, the Hub answers from this machine, this machine's clock agrees with the Hub's, and maintenance. |
+| Apps | Docker works, and every container the Hub started is running. |
+| Resources | Free disk (deploys fail when it's full), memory and load. |
 
 ## When something doesn't work
 

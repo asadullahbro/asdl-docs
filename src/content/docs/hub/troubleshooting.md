@@ -7,6 +7,13 @@ sidebar:
 
 ## First places to look
 
+Start with the doctors: they check the usual causes and say what to do.
+
+```bash
+sudo asdl-hub doctor     # on the Hub's server: Hub, nodes, apps, domains, jobs, notifications
+asdl-agent doctor        # on a node: agent, Hub connection, WireGuard, Docker, disk
+```
+
 | Where | What it tells you |
 |---|---|
 | `sudo asdl-hub status` (Hub server) | Nodes online, unhealthy apps and failed jobs today, in one screen. Then `asdl-hub jobs` and `asdl-hub job <id>` for a job's output. See [Command line](/hub/cli/). |

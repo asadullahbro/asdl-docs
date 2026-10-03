@@ -49,6 +49,7 @@ before a saved login.
 | Command | Does |
 |---|---|
 | `status` | Hub version and whether an update is out, nodes online, app health, today's jobs. |
+| `doctor` | Check everything and say what to fix: see [below](#doctor). |
 | `nodes` | Each node's state (online, offline, maintenance), address, agent version, memory, disk, apps and last heartbeat. |
 | `apps` | Each app's node, status, health, address and when it was last deployed. |
 | `app <app>` | One app: node, image, ports, repository, environment variable names (never values) and plugins. |
@@ -74,6 +75,59 @@ unambiguous: `macbook` for `macbook-pro.local`, `web` for `website`. Add
 Commands need the role the dashboard would: anyone can look, operators and
 admins can deploy, move, restart and read logs, and only admins manage
 notifications and updates.
+
+## Doctor
+
+`asdl-hub doctor` checks the whole setup and prints what's wrong with the
+command or step that fixes it. It exits with 1 if it found a problem, so it
+also works in scripts and cron.
+
+```console
+$ sudo asdl-hub doctor
+ASDL Hub doctor
+
+Hub
+  ✓ Hub answers at http://127.0.0.1:8080, signed in as admin (admin)
+  ✓ Running v0.11.0, the latest release
+
+This server
+  ✓ The asdl-hub service is running
+  ✓ nginx's config is valid
+  ✓ Disk: 31.2 GB (64%) free
+
+Nodes
+  ✓ node-1 is online (agent v2026.10.03-1a2b3c4, 2 apps)
+  ! laptop is offline (last seen 2d ago)
+      → If the machine is on: run asdl-agent doctor on it. If it's gone for good, remove it in the dashboard.
+
+Apps
+  ✓ api is healthy on node-1
+
+Domains
+  ✗ api.example.com (api): points at 203.0.113.9, not the Hub (198.51.100.4)
+      → Point api.example.com at the Hub server (DNS A record 198.51.100.4; proxy off if it's on Cloudflare)
+
+Jobs
+  ✓ No failed jobs in the last 24 hours
+
+Notifications
+  ✓ Discord (discord) works
+
+8 ok, 1 warning, 1 problem
+```
+
+| Section | Checks |
+|---|---|
+| Hub | The Hub answers and accepts your login; it's on the latest release. |
+| This server | Only on the Hub's server: the service, `nginx -t`, nginx running, free disk, and whether the last update finished. |
+| Nodes | Offline nodes (worse if apps are still on them), WireGuard handshakes, nodes left in maintenance, nearly full disks, outdated agents, and whether there's a second node to fail over to. |
+| Apps | Failed, unhealthy or degraded apps. |
+| Domains | Every app and public plugin domain resolves to the Hub and answers over HTTPS, and its certificate has more than 10 days left. |
+| Jobs | Failed jobs in the last 24 hours, and jobs stuck waiting for an online node. |
+| Notifications | Admins: channels whose last send failed, or none set up. |
+
+Add `--json` for the findings as a list, each with `section`, `level`
+(`ok`, `info`, `warning`, `problem`), `message` and `fix`.
 
 ## Examples
 
