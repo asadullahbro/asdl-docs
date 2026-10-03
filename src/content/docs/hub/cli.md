@@ -57,8 +57,18 @@ before a saved login.
 | `move <app> <node>` | Move an app to another node, and wait for it. |
 | `restart <app>` | Restart the app's container. |
 | `logs <app> [-n 100]` | The app's last lines of output. |
+| `app set <app> key=value…` | Change `domain`, `path`, `image`, `ports` (empty: the Hub picks), `node` or `description`. Image, port and node changes redeploy it. |
+| `env <app>` | The app's environment variable names. Values are encrypted and never shown. |
+| `env set <app> [KEY…]` | Add or change variables. You're asked for each value at a hidden prompt, so it never reaches the screen or your shell history. With no names, it asks which ones. The app redeploys. |
+| `env unset <app> [KEY…]` | Remove variables (asks which, if none are given). |
 | `node remove <node>` | [Remove a node](/hub/add-a-node/#remove-a-node) for good, after its apps have moved. Asks first; `--yes` skips the question. |
 | `maintenance <node> on\|off` | Start [maintenance](/hub/maintenance/) (apps move off the node) or end it. |
+| `config` | The Hub's settings in `/opt/asdl-hub/.env`, with secrets hidden (`--show` reveals them). Hub server, with `sudo`. |
+| `config set [KEY…]` | Change settings: asks which and for their values (secret ones hidden), saves a `.env.bak`, then offers to restart the Hub. Risky settings such as `SECRETS_KEY` or `DB_PASSWORD` need `--force`. |
+| `config unset [KEY…]` | Remove settings (their defaults apply). |
+| `server status\|restart\|logs` | The Hub's service. `restart` waits until it answers again; `logs -f` follows its log. |
+| `nginx reload` | Rewrite the app routes from the current apps, check them and reload nginx. |
+| `nginx test` / `nginx routes` | Run `nginx -t`, or print the app routes the Hub wrote. Hub server, with `sudo`. |
 | `jobs [-n 15]` | Recent jobs with their node, status and duration. |
 | `job <id>` | A job's details and output. The short IDs `jobs` prints work. |
 | `notify` | [Notification](/hub/notifications/) channels, with when they last sent and their last error. |
@@ -76,6 +86,26 @@ unambiguous: `macbook` for `macbook-pro.local`, `web` for `website`. Add
 Commands need the role the dashboard would: anyone can look, operators and
 admins can deploy, move, restart and read logs, and only admins manage
 notifications and updates.
+
+## Secrets stay out of your shell history
+
+`env set` and `config set` ask for values instead of taking them in the
+command, so a token never lands in `~/.bash_history` or `~/.zsh_history`:
+
+```console
+$ asdl-hub env set api
+Current variables: DATABASE_URL, SENTRY_DSN
+Which variable do you want to add or change? (Enter when done) STRIPE_KEY
+Value for STRIPE_KEY (hidden):
+  ✓ 32 characters
+Which variable do you want to add or change? (Enter when done)
+Set STRIPE_KEY for api, then redeploy it? [Y/n] y
+Saved. api is redeploying with the new environment.
+```
+
+`asdl-hub env set api STRIPE_KEY` asks only for that value. `KEY=VALUE` still
+works for scripts, and in scripts you can pipe the value in:
+`printf '%s' "$KEY" | asdl-hub env set api STRIPE_KEY`.
 
 ## Doctor
 
