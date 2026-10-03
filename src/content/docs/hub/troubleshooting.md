@@ -87,6 +87,14 @@ are kept.
 You're on the Hub's server without `sudo`. Run `sudo asdl-hub <command>`.
 The command line uses an admin token that only root and the Hub can read.
 
+### `asdl-hub serve`: "password authentication failed for user asdl"
+
+`serve` runs the Hub server, which is what its service does already. Run by
+hand outside `/opt/asdl-hub`, it finds no settings and tries a default
+database password. Use `systemctl status asdl-hub` and `sudo asdl-hub status`
+to check on the running Hub. Hub v0.12.2 and later explain this instead of
+failing.
+
 ### `asdl-hub`: "no Hub to talk to"
 
 This machine isn't the Hub's server and you haven't logged in. Run
