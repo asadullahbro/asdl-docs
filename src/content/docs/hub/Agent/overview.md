@@ -33,6 +33,18 @@ install script sets up everything; there's nothing to configure by hand.
 | `/etc/asdl/<hub>/` | Its configuration |
 | `asdl-agent-<hub>` (systemd service) | `systemctl status 'asdl-agent-*'` |
 
+The agent keeps no node ID. The Hub knows which node is calling from its
+private address, so the configuration holds the Hub's address, the node's
+private address and a few settings, and nothing that identifies the node
+beyond that. If an older version saved a `node_id:` line there, the agent
+removes it the first time it starts after updating, and leaves the rest of
+the file as it was.
+
+:::note
+Agents that no longer send a node ID need Hub v0.13.5 or later: an older Hub
+refuses their maintenance requests. Update the Hub first.
+:::
+
 ## Updating
 
 The agent checks for new releases every 5 minutes and updates itself. To

@@ -43,7 +43,7 @@ command is there on every node and updates with the agent.
 | `auto-update on\|off` | Let new releases install by themselves, or not. |
 | `service status\|restart\|logs` | The agent's service. `restart` (with `sudo`) waits until the agent answers again; `logs -f` follows its log. |
 | `config` | The agent's settings in `/etc/asdl/<hub>/agent.conf` (with `sudo`). |
-| `config set [KEY=VALUE…]` | Change `interval`, `max_jobs`, `work_dir` or `dashboard.port` (asks which, if none are given), keep an `agent.conf.bak` and offer to restart the agent. `hub_url`, `vpn_ip`, `node_id` and `enrolled` need `--force`. |
+| `config set [KEY=VALUE…]` | Change `interval`, `max_jobs`, `work_dir` or `dashboard.port` (asks which, if none are given), keep an `agent.conf.bak` and offer to restart the agent. `hub_url`, `vpn_ip` and `enrolled` need `--force`. |
 | `config unset [KEY…]` | Reset settings to their defaults. |
 | `version` | The program's version. |
 | `run` | Run the agent; this is what the service runs. |
