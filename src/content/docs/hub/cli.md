@@ -85,7 +85,7 @@ unambiguous: `macbook` for `macbook-pro.local`, `web` for `website`. Add
 
 Commands need the role the dashboard would: anyone can look, operators and
 admins can deploy, move, restart and read logs, and only admins manage
-notifications and updates.
+notifications and updates (and open a node's terminal in the dashboard).
 
 ## Secrets stay out of your shell history
 

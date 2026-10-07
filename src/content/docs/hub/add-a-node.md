@@ -31,6 +31,10 @@ Paste the enrollment token when asked. The script then:
 
 The node appears under **Nodes** in the dashboard within a few seconds.
 
+The Hub gives the node a private address on its WireGuard network and tells
+nodes apart by that address (a node can only send from its own), so a node
+never has to send or remember an ID.
+
 ## Checking a node
 
 Open **Nodes → the node** in the dashboard:
@@ -42,6 +46,11 @@ Open **Nodes → the node** in the dashboard:
 - **Apps on this node** lists every container the node's agent reports, with
   the ones the Hub started marked **Hub**. Operators can read a container's
   last 300 log lines or restart it; both run on the node as jobs.
+- **Terminal** (admins only) opens a shell on the node in your browser. The
+  Hub connects over the private network with an SSH key the installer added
+  for the user who ran it, so the node needs an SSH server (the installer
+  turns one on). If the button opens nothing, `asdl-hub doctor` says which
+  node's terminal can't connect and why.
 
 - **Online** means the Hub received a heartbeat recently. A node is marked
   offline after missing three heartbeats (about 90 seconds).

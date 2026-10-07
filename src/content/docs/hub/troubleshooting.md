@@ -108,8 +108,8 @@ one-day session ran out. Run `asdl-hub login` again. On the Hub's server with
 
 ### `asdl-hub`: "insufficient permissions"
 
-Your user's role can't do that: viewers can only look, and notifications and
-updates are admin only. An admin can change roles in **Settings → Users**.
+Your user's role can't do that: viewers can only look, and notifications,
+updates and the node terminal are admin only. An admin can change roles in **Settings → Users**.
 
 ### `asdl-hub`: "command not found" on the Hub server
 

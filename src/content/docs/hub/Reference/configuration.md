@@ -36,7 +36,15 @@ the PostgreSQL connection. The installer creates a local database named
 | `WG_PORT` | UDP port nodes connect to. |
 | `WG_HUB_IP`, `WG_NETWORK` | The Hub's private address and the private network, e.g. `10.101.0.1` in `10.101.0.0/24`. |
 | `WG_ENDPOINT` | Address nodes use to reach the Hub, `host:port`. |
-| `VPN_NETWORKS` | Networks allowed to call the node-only API (heartbeats, jobs). |
+| `VPN_NETWORKS` | Networks allowed to call the node-only API (heartbeats, jobs). The installer sets the WireGuard network plus this machine itself (`127.0.0.0/8`, `::1/128`), which is where nginx connects from. |
+| `TRUSTED_PROXIES` | Addresses whose `X-Forwarded-For` and `X-Real-IP` headers the Hub believes when it works out who is calling: the nginx in front of it. Default `127.0.0.1,::1`. Everyone else's headers are ignored. Since v0.13.5. |
+
+:::caution
+Leave `TRUSTED_PROXIES` alone unless nginx runs on a different machine than
+the Hub, and then list only that machine. The Hub takes a trusted proxy's
+word for who is calling, and the node-only API depends on that, so never add
+a range you don't control.
+:::
 
 ## Optional
 

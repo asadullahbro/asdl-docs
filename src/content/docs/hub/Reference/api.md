@@ -21,7 +21,7 @@ For scripts, create a long-lived token in **Settings → Permanent tokens**
 
 Roles decide what a token's user can do: **viewer** can read, **operator**
 can also deploy and change projects, **admin** can also manage users,
-tokens and settings.
+tokens and settings, and open a node's terminal.
 
 ## Projects
 
@@ -59,6 +59,7 @@ curl -X PUT https://hub.example.com/api/v1/projects/$ID \
 | `GET /nodes`, `GET /nodes/:id` | Nodes and their health, including the containers each agent reports. |
 | `DELETE /nodes/:id` | Admin: remove a node (WireGuard access, keys, history). Refused with `409` while apps run on it. |
 | `GET /nodes/:id/connection` | Last heartbeat, WireGuard handshake, ping and agent version. |
+| `GET /nodes/:id/terminal` | Admin: a WebSocket to a shell on the node, which is what the dashboard's **Terminal** button uses. The token goes in the query (`?token=`), because a browser can't set headers on a WebSocket. |
 | `PUT /nodes/:id/maintenance` | `{"enabled": true\|false}`: start or end [maintenance](/hub/maintenance/). Returns which apps are moving and which stay. |
 | `POST /nodes/:id/containers/:name/logs?lines=N` | Fetch a container's logs; returns a `job_id` to follow with `GET /jobs/:id/logs`. |
 | `POST /nodes/:id/containers/:name/restart` | Restart a container; returns a `job_id`. |
@@ -66,6 +67,22 @@ curl -X PUT https://hub.example.com/api/v1/projects/$ID \
 | `GET /migrations` | Failovers and moves. |
 | `POST /agents/deploy` | Update the agent on all online nodes. |
 | `POST /nginx/update` | Rebuild app routes and certificates now. |
+
+### Routes for agents
+
+Agents call these over the WireGuard network; from anywhere else they answer
+`403`. They take no token. The Hub knows which node is calling from the
+private address the request came from (WireGuard lets a node send only from
+its own), and it ignores any node ID in the URL or query: agents send `self`
+where an ID would go.
+
+| Request | Does |
+|---|---|
+| `POST /nodes` | A node announces itself when its agent starts. |
+| `POST /nodes/self/heartbeat` | The heartbeat, every 30 seconds. |
+| `POST /nodes/self/maintenance` | A node asks to start or end maintenance for itself. |
+| `POST /jobs/claim` | A node asks for its next waiting job. |
+| `POST /jobs/:id/complete` | A node reports how a job ended. Only the node the job belongs to can. |
 
 ## Notifications
 
