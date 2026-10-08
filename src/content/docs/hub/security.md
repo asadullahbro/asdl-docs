@@ -61,14 +61,10 @@ that token (`DELETE /api/v1/settings/users/<id>/2fa`).
 
 ### Command line
 
-`asdl-hub login` asks for the code after the password when two-factor is on:
-
-```console
-$ asdl-hub login https://hub.example.com
-Username: alice
-Password:
-Two-factor code (or a recovery code): 123456
-```
+`asdl-hub login` opens the dashboard's authorise page, where you sign in as
+usual (with a code, if two-factor is on) and approve that machine. See
+[the command line page](/hub/cli/). `asdl-hub login --password` asks for the
+password and the code in the terminal instead.
 
 ### What it doesn't cover
 
@@ -76,8 +72,9 @@ Two-factor protects **signing in with a password**. These skip it, because they
 are made to work without a person:
 
 - **Permanent tokens** from **Settings → Tokens**, and the token `asdl-hub`
-  saves when an admin logs in. Treat them like passwords, and revoke the ones
-  you no longer use.
+  saves when an admin logs in. Signing in to `asdl-hub` does ask for the code
+  (in the browser), but the token it saves then works without one. Treat
+  tokens like passwords, and revoke the ones you no longer use.
 - **The Hub server's own CLI token**, readable only by root on that machine.
 - **Agents**, which authenticate by their WireGuard address, not by a user.
 
@@ -108,6 +105,14 @@ account's sign-ins for up to 15 minutes. If that happens to an admin, use
 The Hub works out each caller's address from the connection, and believes
 `X-Forwarded-For` only when it comes from the nginx in front of it. See
 `TRUSTED_PROXIES` in the [configuration reference](/hub/reference/configuration/).
+
+## Approving a command-line login
+
+`asdl-hub login` shows a code and a page address. The page shows the machine's
+name and the address the request came from; approve it only if you just ran
+the command and the code matches your terminal. If someone asks you to approve
+a code you didn't start, turn it down: approving gives that machine your
+access.
 
 ## Roles and tokens
 

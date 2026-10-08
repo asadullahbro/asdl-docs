@@ -109,4 +109,8 @@ Admin only; see [Notifications](/hub/notifications/#api).
 | `POST /auth/2fa/setup` | Start setting up two-factor → `{"secret","uri"}` (the `otpauth://` URI for a QR code). |
 | `POST /auth/2fa/enable` | `{"code"}` confirms the app and turns it on → `{"recovery_codes"}`, shown once. |
 | `POST /auth/2fa/disable` | `{"password","code"}` turns it off. |
+| `POST /auth/cli/start` | `{"machine"}` → `{"code","poll_secret","expires_in","path"}`: a login request for `asdl-hub login` (no sign-in needed; limited per address). |
+| `POST /auth/cli/poll` | `{"code","poll_secret"}` → `202` while waiting, `200 {"token","user"}` once approved (once only), `410` if turned down or expired. |
+| `GET /auth/cli/request?code=` | Signed in: who asked and from where. |
+| `POST /auth/cli/approve`, `POST /auth/cli/deny` | Signed in: `{"code"}` answers the request. Approving gives admins a permanent token and others a day-long session. |
 | `DELETE /settings/users/:id/2fa` | Admin: turn two-factor off for a user who lost their device. |

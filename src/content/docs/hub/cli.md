@@ -30,19 +30,32 @@ user and root, and renews it daily.
 
 ```console
 $ asdl-hub login https://hub.example.com
-Username: admin
-Password:
+Open this page and approve the login:
+
+  https://hub.example.com/authorize?code=K3F9-X2MQ
+
+Its code should read K3F9-X2MQ. Waiting…
 Logged in to https://hub.example.com as admin, token "asdl-hub CLI (admin@laptop)" (revoke it in Settings → Tokens) (admin).
 ```
 
-If your account has [two-factor sign-in](/hub/security/#two-factor-sign-in)
-on, `login` also asks for a code after the password.
+`login` opens that page in your browser (if the machine has one; otherwise
+open the address on any device). Sign in to the dashboard there, as you
+normally do, with [two-factor](/hub/security/#two-factor-sign-in) if you have it
+on, check that the code matches the one in your terminal, and click
+**Approve**. Your password and codes never go through the terminal. The
+request expires after 5 minutes and works once.
 
 For admins, logging in creates a permanent token named after the machine,
 which you can revoke in **Settings → Tokens**; `asdl-hub logout` revokes it and
 forgets the login. Other users get a session that lasts a day. To use a token
 you already have, run `asdl-hub login <url> --token <token>`. The login is saved
 in `~/.config/asdl-hub/cli.json`, readable only by you.
+
+| Flag | Does |
+|---|---|
+| `--no-browser` | Print the address instead of opening it. |
+| `--password` | Ask for a username and password (and a two-factor code) in the terminal instead. For machines where you can't reach the page. |
+| `--token <token>` | Save a token you already have. |
 
 In scripts and CI, set `ASDL_HUB_URL` and `ASDL_HUB_TOKEN` instead; they come
 before a saved login.
