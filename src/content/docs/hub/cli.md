@@ -24,8 +24,7 @@ commands with `sudo`; nothing else to set up. The Hub keeps an admin token for
 the command line in `/opt/asdl-hub/.cli-token`, readable only by the Hub's
 user and root, and renews it daily.
 
-**On another machine** (Linux, macOS or Windows), install the command with
-the same address as the Hub's installer:
+**On another machine** (Linux, macOS or Windows), install the command:
 
 ```bash
 # Linux and macOS
@@ -34,10 +33,10 @@ curl -fsSL https://get.asdl.website/asdl-hub | bash
 
 ```powershell
 # Windows PowerShell
-irm https://get.asdl.website/asdl-hub | iex
+irm https://github.com/asadullahbro/ASDL-Hub/releases/latest/download/install.ps1 | iex
 ```
 
-On Linux it asks whether to install the Hub or only the command line; choose
+On Linux (the first command) it asks whether to install the Hub or only the command line; choose
 **2) Command line**. The Hub (the server) runs on Linux only, so on macOS and
 Windows that choice is shown as unavailable and only the command line is
 installed. The installer downloads the release's build, checks it against the
