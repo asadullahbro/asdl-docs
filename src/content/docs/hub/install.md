@@ -22,8 +22,15 @@ sidebar:
 curl -fsSL https://get.asdl.website/asdl-hub | sudo bash
 ```
 
-The installer asks for a domain (you can leave it empty to use the server's
-IP), then sets up everything: PostgreSQL, WireGuard, nginx, the firewall, a
+On Linux the installer first asks what to install: **1) ASDL Hub** (the
+server) or **2) Command line** (just the `asdl-hub` command, to manage a Hub
+from this machine; see [Command line](/hub/cli/#where-to-run-it)). Choose 1.
+When there is no terminal to ask on, such as in a script or the Hub's own
+upgrade, it installs the Hub, as it always did. To skip the question, run
+`curl -fsSL https://get.asdl.website/asdl-hub | sudo ASDL_INSTALL=hub bash`.
+
+The installer then asks for a domain (you can leave it empty to use the server's
+IP), and sets up everything: PostgreSQL, WireGuard, nginx, the firewall, a
 systemd service, HTTPS for the dashboard, and the Hub itself. At the end it
 prints the dashboard URL and the admin login.
 
