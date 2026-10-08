@@ -19,6 +19,9 @@ curl -H "Authorization: Bearer $TOKEN" https://hub.example.com/api/v1/projects
 For scripts, create a long-lived token in **Settings → Permanent tokens**
 (admin only). Revoke it there when it is no longer needed.
 
+Tokens from **Settings → Tokens** don't ask for a two-factor code; the
+[security page](/hub/security/) explains what that means.
+
 Roles decide what a token's user can do: **viewer** can read, **operator**
 can also deploy and change projects, **admin** can also manage users,
 tokens and settings, and open a node's terminal.
@@ -101,4 +104,9 @@ Admin only; see [Notifications](/hub/notifications/#api).
 | `GET /system/version` | Running and latest version; `?refresh=1` checks GitHub now. |
 | `POST /system/update` | Admin: upgrade to the latest release. |
 | `GET /health` (no `/api/v1`) | Is the Hub up. |
-| `POST /auth/login` | `{"username","password"}` → `{"token"}` (dashboard login). |
+| `POST /auth/login` | `{"username","password"}` → `{"token","user"}` (dashboard login). If the user has two-factor on, → `{"mfa_required":true,"mfa_token"}` instead. Too many failures from an address or for an account → `429` with `Retry-After`. |
+| `POST /auth/2fa/login` | `{"mfa_token","code"}` → `{"token","user"}`. The code is a 6-digit app code or a recovery code; `mfa_token` lasts 5 minutes and is not a session. |
+| `POST /auth/2fa/setup` | Start setting up two-factor → `{"secret","uri"}` (the `otpauth://` URI for a QR code). |
+| `POST /auth/2fa/enable` | `{"code"}` confirms the app and turns it on → `{"recovery_codes"}`, shown once. |
+| `POST /auth/2fa/disable` | `{"password","code"}` turns it off. |
+| `DELETE /settings/users/:id/2fa` | Admin: turn two-factor off for a user who lost their device. |

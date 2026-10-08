@@ -35,6 +35,9 @@ Password:
 Logged in to https://hub.example.com as admin, token "asdl-hub CLI (admin@laptop)" (revoke it in Settings → Tokens) (admin).
 ```
 
+If your account has [two-factor sign-in](/hub/security/#two-factor-sign-in)
+on, `login` also asks for a code after the password.
+
 For admins, logging in creates a permanent token named after the machine,
 which you can revoke in **Settings → Tokens**; `asdl-hub logout` revokes it and
 forgets the login. Other users get a session that lasts a day. To use a token

@@ -80,6 +80,27 @@ on the Hub server. Fix what it reports and try again. If the Hub doesn't come
 back up, run the [install command](/hub/install/) again; your data and settings
 are kept.
 
+### The dashboard says "too many failed logins"
+
+After 8 wrong passwords from one address, or 20 for one account, the Hub
+refuses sign-ins for up to 15 minutes, even with the right password. Wait
+the time it names, or restart the Hub to clear the counts
+(`sudo systemctl restart asdl-hub`). See
+[limits on failed logins](/hub/security/#limits-on-failed-logins).
+
+### I lost my authenticator and recovery codes
+
+Another admin can reset it in **Settings → Users → Reset 2FA**. If you are the
+only admin, use `sudo asdl-hub` on the Hub server, which doesn't depend on your
+dashboard login, and call `DELETE /api/v1/settings/users/<id>/2fa` with its
+token. See [two-factor sign-in](/hub/security/#two-factor-sign-in).
+
+### Two-factor codes are always wrong
+
+The codes depend on the clock. Check the time on your phone and on the Hub
+server (`timedatectl`); both should sync automatically. A code works for about
+30 seconds either side and only once, so wait for the next code in the app.
+
 ## Command line
 
 ### `asdl-hub`: "reading its CLI token needs root"
